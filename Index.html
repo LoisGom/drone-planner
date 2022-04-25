@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planificador </title>
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/d3/7.4.4/d3.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src ="index.js"> </script> 
@@ -24,6 +25,34 @@
           <div class="col-4">
 
             <div class="accordion" id="accordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingVis">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVis" aria-expanded="false" aria-controls="collapseVis">
+                   <b>Área de visualización</b> 
+                  </button>
+                </h2>
+                <div id="collapseVis" class="accordion-collapse collapse" aria-labelledby="headingVis" data-bs-parent="#accordion">
+                  <div class="accordion-body">
+                      <div class="form-floating">
+                        <input id="anchoArea" type="text" class="form-control margin-component" placeholder="Ancho de Área" >
+                        <label for="anchoArea">Ancho área (m)</label>
+                      </div>
+                      <div class="form-floating">
+                        <input id="altoArea" type="text" class="form-control margin-component" placeholder="Alto de Área" >  
+                        <label for="altoArea">Alto área (m)</label>
+                      </div>
+                      <div class="form-floating">
+                        <input id="coordX" type="text" class="form-control margin-component" placeholder="Eje coordenada x" > 
+                        <label for="coordX">Eje coordenada x</label>
+                      </div>
+                      <div class="form-floating">
+                        <input id="coordY" type="text" class="form-control margin-component" placeholder="Eje coordenada y" > 
+                        <label for="coordY">Eje coordenada </label>
+                      </div>
+                      <button type="button" class="btn btn-primary margin-component"  onclick="dimensionesArea();" > Restaurar area</button>
+                  </div>
+                </div>
+              </div>
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -41,19 +70,20 @@
                         <div id="collapseArea" class="accordion-collapse collapse" aria-labelledby="headingArea" data-bs-parent="#collapseOne">
                           <div class="accordion-body">
                         <div class="form-floating">
-                            <input id="xMin" type="text" class="form-control margin-component" placeholder="X mínima" >
+                            <input id="xMin" type="text" onclick="fillState('AM_min','#FF0000','#FF0000')" class="form-control margin-component" placeholder="X mínima" >
                             <label for="XMin">X mínima</label>
                         </div>
                         <div class="form-floating">
-                            <input id="xMax" type="text" class="form-control margin-component" placeholder="X máxima" >
+                          <input id="yMin" type="text"onclick="fillState('AM_min','#FF0000','#FF0000')" class="form-control margin-component" placeholder="Y mínima" >
+                          <label for="yMin">Y mínima</label>
+                       </div>
+                        <div class="form-floating">
+                            <input id="xMax" type="text" onclick="fillState('AM_max','#FF0000','#FF0000')" class="form-control margin-component" placeholder="X máxima" >
                             <label for="xMax">X máxima</label>
                         </div>
+
                         <div class="form-floating">
-                            <input id="yMin" type="text" class="form-control margin-component" placeholder="Y mínima" >
-                            <label for="yMin">Y mínima</label>
-                         </div>
-                        <div class="form-floating">
-                            <input id="yMax" type="text" class="form-control margin-component" placeholder="Y máxima" >
+                            <input id="yMax" type="text"onclick="fillState('AM_max','#FF0000','#FF0000')" class="form-control margin-component" placeholder="Y máxima" >
                             <label for="yMax">Y máxima</label>
                         </div>
                       </div>
@@ -64,13 +94,21 @@
                             <label for="alturaVuelo">Altura de vuelo</label>
                         </div>
                         <div class="form-floating">
-                            <input id="despegue" type="text" class="form-control margin-component" placeholder="Pto de despegue" >
-                            <label for="despegue">Pto de despegue</label>
+                            <input id="despegueX" type="text" onclick="fillState('despegue','#FF0000','#00FF00')" class="form-control margin-component" placeholder="Pto X de despegue" >
+                            <label for="despegueX">Pto X de despegue</label>
                         </div>
                         <div class="form-floating">
-                            <input id="aterrizaje" type="text" class="form-control margin-component" placeholder="Pto de aterrizaje" >
-                            <label for="aterrizaje">Pto de aterrizaje</label>
+                          <input id="despegueY" type="text" onclick="fillState('despegue','#FF0000','#00FF00')" class="form-control margin-component" placeholder="Pto Y de despegue" >
+                          <label for="despegueY">Pto Y de despegue</label>
+                      </div>
+                        <div class="form-floating">
+                            <input id="aterrizajeX" type="text" onclick="fillState('aterrizaje','#FF0000','#0000FF')"  class="form-control margin-component" placeholder="Pto X de aterrizaje" >
+                            <label for="aterrizajeX">Pto X de aterrizaje</label>
                         </div>
+                        <div class="form-floating">
+                          <input id="aterrizajeY" type="text" onclick="fillState('aterrizaje','#FF0000','#0000FF')" class="form-control margin-component" placeholder="Pto Y de despegue" >
+                          <label for="aterrizajeY">Pto Y de aterrizaje </label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -125,8 +163,19 @@
                   </div>
                 </div>
                 </div>
+                <button type="button" class="btn btn-primary margin-component" data-bs-toggle="collapse" data-bs-target="#Resultados" onclick="dimensiones(); distanciaSolape();resolucion() " >Calcular parámetros</button>
+                <button type="button" class="btn btn-primary margin-component" onclick="dimensiones(); distanciaSolape();resolucion();createmission();" >Crear misión </button>
+                <br>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" onclick="hidePhoto()" id="flexSwitchCheckDefault2" checked>
+                  <label class="form-check-label" for="flexSwitchCheckChecked">Hide/Show Photograms</label>
+                </div>
+                <br>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" onclick="hidePhotocenter()" id="flexSwitchCheckDefault2" checked>
+                  <label class="form-check-label" for="flexSwitchCheckChecked">Hide/Show Photograms</label>
+                </div>
 
-                <button type="button" class="btn btn-primary margin-component" data-bs-toggle="collapse" data-bs-target="#Resultados" onclick="dimensiones(); distanciaSolape();resolucion(); " >Calcular</button>
                 <div class="collapse" id="Resultados">
                     <div class="form-floating">
                         <input id="anchoFotografia" type="text" class="form-control margin-component" >
@@ -156,7 +205,8 @@
             </div>
             
             <div class="col-8 ">
-              <svg class="map-container"> </svg>
+              <svg class="map-container" id="svgContainer" viewBox="0 0 800 600"   height= "600" width= "800" onclick="getCoors(evt),PaintAreaPath();" >
+            </svg>
           </div>
         </div>
     </div>

@@ -1,7 +1,10 @@
 .contenedor{
     margin-top: 10px ;
-    padding: 10px;
-    height: 90vh;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+      height: 90vh;
 }
 
 .margin-component{
@@ -9,8 +12,8 @@
 }
 
 .map-container{
-    height: 88vh;
+    /*height: 88vh;
     width: 100%;
-    padding: 10px;
+    padding: 10px;*/ 
     background-color: antiquewhite;
 }
